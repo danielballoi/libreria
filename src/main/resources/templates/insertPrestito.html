@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Insert Prestito</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="fragments/navbar "> </header>
+<div class="container-fluid p-5 " th:object="${utente}">
+    <div class="row">
+
+        <div class="col">
+            <p class="text-primary d-inline">Inserisci un nuovo prestito per</p>
+            <p class="d-inline" th:text="${utente.name}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" >
+            <form th:action="@{'/prestito/save/'+${utente.id}}" method="POST" th:object="${prestito}" class="w-50">
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" required th:field="*{data}">
+                </div>
+
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" th:field="*{idLibro}">
+                        <th:block th:each="libro: ${libri}">
+
+                        <option th:value="${libro.id}" th:text="${libro.title}"></option>
+
+                        </th:block>
+                    </select>
+                </div>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
